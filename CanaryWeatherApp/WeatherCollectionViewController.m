@@ -46,39 +46,27 @@ static NSString * const reuseIdentifier = @"CustomCell";
     [self startLoading];
 }
 
-- (void)setupLocationManager
-{
+- (void)setupLocationManager {
     [self.locationManager requestAlwaysAuthorization];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)startLoading
-{
+- (void)startLoading {
+   
     DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeTriangleSkewSpin tintColor:[UIColor colorWithRed:105.0/255.0 green:105.0/255.0 blue:105.0/255.0 alpha:1.0]];
     CGFloat width = self.view.bounds.size.width / 20.0f;
     CGFloat height = self.view.bounds.size.height / 20.0f;
@@ -92,8 +80,8 @@ static NSString * const reuseIdentifier = @"CustomCell";
     
 }
 
-- (void)stopLoading
-{
+- (void)stopLoading {
+    
     [UIView animateWithDuration:0.25 animations:^{
         self.loadingView.alpha = 0;
         self.collectionView.alpha = 1;
@@ -125,7 +113,8 @@ static NSString * const reuseIdentifier = @"CustomCell";
     
     
     NSString *maxTemp = currentResult.tempMax;
-    cell.tempLabel.text = maxTemp;
+//    cell.tempLabel.text = maxTemp;
+    cell.tempLabel.text = [NSString stringWithFormat:@"%@ °F", maxTemp];
     
     NSString *image = currentResult.image;
     cell.weatherImage.image = [UIImage imageNamed:image];

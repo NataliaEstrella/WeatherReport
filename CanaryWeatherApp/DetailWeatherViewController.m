@@ -23,6 +23,8 @@
     self.title = self.weather.day;
     
     [self setLabelsToAPIInfo];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,8 +36,8 @@
     
     NSLog(@"self.weather %@", self.weather);
     self.iconImage.image = [UIImage imageNamed:self.weather.image];
-    self.maxWeather.text = self.weather.tempMax;
-    self.minWeather.text = self.weather.tempMin;
+    self.maxWeather.text = [NSString stringWithFormat:@"%@ °F", self.weather.tempMax];
+    self.minWeather.text = [NSString stringWithFormat:@"%@ °F", self.weather.tempMin];
     self.summaryLabel.text = self.weather.summary;
 }
 
