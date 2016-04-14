@@ -11,7 +11,7 @@
 #import "CollectionViewCell.h"
 #import "WeatherManager.h"
 #import "DetailWeatherViewController.h"
-#import "DGActivityIndicatorView.h"
+
 
 
 
@@ -33,6 +33,8 @@ static NSString * const reuseIdentifier = @"CustomCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     self.results = [[NSMutableArray alloc] init];
     self.locationManager = [[CLLocationManager alloc]init];
     
@@ -49,6 +51,7 @@ static NSString * const reuseIdentifier = @"CustomCell";
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     [self.locationManager requestAlwaysAuthorization];
+//    [self customTransitionAmination];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -128,12 +131,5 @@ static NSString * const reuseIdentifier = @"CustomCell";
     
 }
 
--(void)customTransitionAmination {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeDoubleBounce tintColor:[UIColor whiteColor] size:20.0f];
-    activityIndicatorView.frame = CGRectMake(0.0f, 0.0f, 50.0f, 50.0f);
-    [self.view addSubview:activityIndicatorView];
-    [activityIndicatorView startAnimating];
-}
 #pragma mark <UICollectionViewDelegate>
 @end

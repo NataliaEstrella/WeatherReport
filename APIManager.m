@@ -23,7 +23,7 @@
     
     NSMutableArray *weatherReport = [[NSMutableArray alloc] init];
     
-    NSString *url = [NSString stringWithFormat:@"https://api.forecast.io/forecast/8040fc5b15adaaafabbe7de9c3ff5458/%f,%f", location.coordinate.latitude, location.coordinate.longitude];
+    NSString *url = [NSString stringWithFormat:@"https://api.forecast.io/forecast/f2ad11730c309f0637ba276c1217f0c0/%f,%f", location.coordinate.latitude, location.coordinate.longitude];
     NSLog(@" lat and long %@, %@", @(location.coordinate.latitude), @(location.coordinate.longitude));
     
     [manager GET:url

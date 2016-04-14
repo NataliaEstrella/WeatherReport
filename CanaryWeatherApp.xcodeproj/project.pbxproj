@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A5E74DEBFFAD92B0EFCAB85 /* libPods-CanaryWeatherApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7788F0FB97164547481222E2 /* libPods-CanaryWeatherApp.a */; };
+		5101944E1CC01E7A00324FD5 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5101944D1CC01E7A00324FD5 /* LaunchViewController.m */; };
 		51B10C9F1CBEAC1600DCE330 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B10C9D1CBEAC1600DCE330 /* CollectionViewCell.m */; };
 		51B10CA01CBEAC1600DCE330 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B10C9E1CBEAC1600DCE330 /* CollectionViewCell.xib */; };
 		51B10CA91CBEBD8200DCE330 /* WeatherManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B10CA81CBEBD8200DCE330 /* WeatherManager.m */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5101944C1CC01E7A00324FD5 /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		5101944D1CC01E7A00324FD5 /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		51B10C9C1CBEAC1600DCE330 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		51B10C9D1CBEAC1600DCE330 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		51B10C9E1CBEAC1600DCE330 /* CollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				51B8164E1CBDAA5D00E3AE7B /* APIManager.m */,
 				51B10CA71CBEBD8200DCE330 /* WeatherManager.h */,
 				51B10CA81CBEBD8200DCE330 /* WeatherManager.m */,
+				5101944C1CC01E7A00324FD5 /* LaunchViewController.h */,
+				5101944D1CC01E7A00324FD5 /* LaunchViewController.m */,
 				51B816561CBDC6F500E3AE7B /* WeatherCollectionViewController.h */,
 				51B816571CBDC6F500E3AE7B /* WeatherCollectionViewController.m */,
 				51B10C9C1CBEAC1600DCE330 /* CollectionViewCell.h */,
@@ -257,6 +262,7 @@
 			files = (
 				51B10C9F1CBEAC1600DCE330 /* CollectionViewCell.m in Sources */,
 				51B816411CBDA0C700E3AE7B /* CanaryWeatherApp.xcdatamodeld in Sources */,
+				5101944E1CC01E7A00324FD5 /* LaunchViewController.m in Sources */,
 				51B10CAC1CBEF65000DCE330 /* DetailWeatherViewController.m in Sources */,
 				51B816581CBDC6F500E3AE7B /* WeatherCollectionViewController.m in Sources */,
 				51B816381CBDA0C700E3AE7B /* AppDelegate.m in Sources */,
