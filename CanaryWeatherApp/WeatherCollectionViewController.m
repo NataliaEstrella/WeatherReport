@@ -15,7 +15,7 @@
 
 
 
-@interface WeatherCollectionViewController ()
+@interface WeatherCollectionViewController ()<CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) CLLocation *location;
@@ -33,13 +33,8 @@ static NSString * const reuseIdentifier = @"CustomCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     self.results = [[NSMutableArray alloc] init];
     self.locationManager = [[CLLocationManager alloc]init];
-    
-    [self getData];
-
 
     // Register cell classes
     UINib *customCollectionCellNib = [UINib nibWithNibName:@"CollectionViewCell" bundle:nil];
@@ -53,8 +48,15 @@ static NSString * const reuseIdentifier = @"CustomCell";
     [self.locationManager requestAlwaysAuthorization];
      self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
+    self.locationManager.delegate = self;
 
 //    [self customTransitionAmination];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.location = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,5 +122,15 @@ static NSString * const reuseIdentifier = @"CustomCell";
 
 }
 
-#pragma mark <UICollectionViewDelegate>
+#pragma mark <CLLocationManagerDelegate>
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    if (self.location) return;
+    if (!locations.lastObject) return;
+    self.location = locations.lastObject;
+    [self getData];
+    [self.locationManager stopUpdatingLocation];
+}
 @end

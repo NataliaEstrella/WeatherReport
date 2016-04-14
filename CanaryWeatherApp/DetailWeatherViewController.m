@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = self.weather.day;
     
     [self setLabelsToAPIInfo];
 }
