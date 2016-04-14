@@ -11,12 +11,13 @@
 #import "CollectionViewCell.h"
 #import "WeatherManager.h"
 #import "DetailWeatherViewController.h"
-
+#import "DGActivityIndicatorView.h"
 
 
 
 @interface WeatherCollectionViewController ()<CLLocationManagerDelegate>
 
+@property (nonatomic) DGActivityIndicatorView *loadingView;
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) CLLocation *location;
 
@@ -39,31 +40,68 @@ static NSString * const reuseIdentifier = @"CustomCell";
     // Register cell classes
     UINib *customCollectionCellNib = [UINib nibWithNibName:@"CollectionViewCell" bundle:nil];
     [self.collectionView registerNib:customCollectionCellNib forCellWithReuseIdentifier:reuseIdentifier];
-
+    self.view.backgroundColor = [UIColor whiteColor];
     
+    [self setupLocationManager];
+    [self startLoading];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
+- (void)setupLocationManager
+{
     [self.locationManager requestAlwaysAuthorization];
-     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
+}
 
-//    [self customTransitionAmination];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    self.location = nil;
+    [self.navigationController setNavigationBarHidden:NO];
 }
+
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)startLoading
+{
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeTriangleSkewSpin tintColor:[UIColor colorWithRed:105.0/255.0 green:105.0/255.0 blue:105.0/255.0 alpha:1.0]];
+    CGFloat width = self.view.bounds.size.width / 20.0f;
+    CGFloat height = self.view.bounds.size.height / 20.0f;
+    
+    activityIndicatorView.frame = CGRectMake(0, 0, width, height);
+    [self.view addSubview:activityIndicatorView];
+    [activityIndicatorView startAnimating];
+    [activityIndicatorView setCenter:self.view.center];
+    self.loadingView = activityIndicatorView;
+    self.collectionView.alpha = 0;
+    
+}
+
+- (void)stopLoading
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.loadingView.alpha = 0;
+        self.collectionView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [self.loadingView stopAnimating];
+        [self.loadingView removeFromSuperview];
+        self.loadingView = nil;
+    }];
+}
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -112,17 +150,25 @@ static NSString * const reuseIdentifier = @"CustomCell";
 }
 
 -(void)getData {
-    
-    [APIManager makeRequestWithLocation:self.location
-                        withLCompletion:^(NSMutableArray *data) {
-                            self.results = data;
-                            [self.collectionView reloadData];
-                            
-                        }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [APIManager makeRequestWithLocation:self.location
+                            withLCompletion:^(NSMutableArray *data) {
+                                self.results = data;
+                                [self.collectionView reloadData];
+                                [self stopLoading];
+                            }];
+    });
+
 
 }
 
 #pragma mark <CLLocationManagerDelegate>
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [self.locationManager stopUpdatingLocation];
+    [self getData];
+}
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations
@@ -133,4 +179,6 @@ static NSString * const reuseIdentifier = @"CustomCell";
     [self getData];
     [self.locationManager stopUpdatingLocation];
 }
+
+
 @end
