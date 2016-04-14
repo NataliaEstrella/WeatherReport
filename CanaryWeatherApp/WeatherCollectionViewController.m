@@ -51,6 +51,9 @@ static NSString * const reuseIdentifier = @"CustomCell";
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     [self.locationManager requestAlwaysAuthorization];
+     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+
 //    [self customTransitionAmination];
 }
 
@@ -107,7 +110,6 @@ static NSString * const reuseIdentifier = @"CustomCell";
 }
 
 -(void)getData {
-
     
     [APIManager makeRequestWithLocation:self.location
                         withLCompletion:^(NSMutableArray *data) {
@@ -115,20 +117,7 @@ static NSString * const reuseIdentifier = @"CustomCell";
                             [self.collectionView reloadData];
                             
                         }];
-    
-    
-    
-    //    [APIManager makeRequestWithLocation:nil withLCompletion:^(NSMutableArray *data) {
-    //        self.results = data;
-    //        [self.collectionView reloadData];
-    //    }];
-    
-    
-    //    [APIManager makeRequest:^(NSMutableArray *data) {
-    //        self.results = data;
-    //        [self.collectionView reloadData];
-    //    }];
-    
+
 }
 
 #pragma mark <UICollectionViewDelegate>

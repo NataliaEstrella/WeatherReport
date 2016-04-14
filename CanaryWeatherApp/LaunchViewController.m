@@ -30,7 +30,7 @@
 
 -(void)customTransitionAmination {
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:233.0/255.0 blue:225.0/255.0 alpha:1.0];
     
     
     
